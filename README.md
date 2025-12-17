@@ -60,8 +60,14 @@ Ingestion: HTTP and Console logs are streamed to a Log Analytics Workspace.
 Detection: Custom KQL queries identify suspicious patterns (e.g., high-frequency 401 errors indicating a brute-force attempt).
 
 📸 Operational Evidence
-1. The Deployment Pipeline
-Infrastructure provisioning and Security Gates in action. (Place your screenshot of the Green GitHub Actions run here)
+### 1. The Deployment Pipeline
+*Infrastructure provisioning and Security Gates in action.*
+![GitHub Actions Success] ![Uploading pipeline-success.png.png…]()
+
+
+### 2. Attack Detection (SIEM)
+*Real-time detection of a brute-force simulation against the `/login` endpoint.*
+![Azure Sentinel Logs](https://via.placeholder.com/800x400.png?text=Place+Your+Sentinel+Logs+Screenshot+Here)
 
 2. Attack Detection (SIEM)
 Real-time detection of a brute-force simulation against the /login endpoint. (Place your screenshot of the Azure Sentinel Logs showing the attack here)
