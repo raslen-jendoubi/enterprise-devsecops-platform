@@ -69,7 +69,7 @@ Sentinel is used to detect brute-force attempts against the /login endpoint.
 
 ### CI/CD Pipeline – Secure Deployment Success
 
-![CI/CD Pipeline Success](pipeline-success.png)
+![CI/CD Pipeline Success](pipeline-success.png.png)
 
 ---
 
