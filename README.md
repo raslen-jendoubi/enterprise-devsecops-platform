@@ -20,7 +20,7 @@ This project is aligned with 2025 DevSecOps Engineer and Cloud Security Engineer
 
 ## 🎯 Key Capabilities
 
-- Infrastructure as Code (IaC) using Terraform (no Azure Portal usage)
+- Infrastructure as Code (IaC) using Terraform
 - Secure CI/CD with GitHub Actions and enforced vulnerability scanning
 - Trivy security gate blocking vulnerable container images
 - Container hardening with non-root execution
@@ -33,14 +33,11 @@ This project is aligned with 2025 DevSecOps Engineer and Cloud Security Engineer
 
 ## 🏗️ Architecture Overview
 
-Architecture Flow (Logical):
-
-Developer → GitHub Repository → GitHub Actions  
-GitHub Actions → Docker Build → Trivy Scan → Terraform Apply  
+Developer → GitHub → GitHub Actions → Docker Build → Trivy Scan → Terraform Apply  
 Azure Container Registry → Azure Web App (Hardened Container)  
-Azure Web App → Log Analytics Workspace → Azure Sentinel  
+Azure Web App → Log Analytics → Azure Sentinel  
 
-Public Users access the application via HTTPS  
+Public users access the app via HTTPS  
 Attackers attempt brute-force attacks on /login  
 Sentinel detects abnormal behavior and alerts the analyst
 
@@ -48,84 +45,57 @@ Sentinel detects abnormal behavior and alerts the analyst
 
 ## 🔐 Security Implementation
 
-1) Supply Chain Security (Trivy)
+### Supply Chain Security (Trivy)
 
 Every commit triggers an automated container vulnerability scan.  
-If HIGH or CRITICAL CVEs are found, the pipeline fails immediately.  
-This prevents insecure artifacts from ever reaching production.
-
-Security principle applied: Shift Security Left
+If HIGH or CRITICAL CVEs are found, the pipeline fails immediately.
 
 ---
 
-2) Container Hardening
+### Container Hardening
 
 The application runs as a non-root user with a minimal base image.
 
-Impact:
-If an attacker compromises the application, privilege escalation and host escape are significantly restricted.
-
 ---
 
-3) SOC & Threat Detection (Azure Sentinel)
+### SOC & Threat Detection (Azure Sentinel)
 
 HTTP access logs are streamed into Azure Log Analytics.  
-Microsoft Sentinel is used as the SIEM for detection and investigation.
-
-Attack Scenario Implemented:
-- Brute-force attempts on /login endpoint
-- Repeated requests from a single IP address
-- Automated tool identified via curl User-Agent
+Sentinel is used to detect brute-force attempts against the /login endpoint.
 
 ---
 
 ## 📸 Operational Evidence
 
-CI/CD Pipeline – Secure Deployment Success
+### CI/CD Pipeline – Secure Deployment Success
 
-This proves:
-- Trivy scan passed
-- Terraform infrastructure applied
-- Secure container deployed successfully
-
-Screenshot:
-pipeline-success.png
+![CI/CD Pipeline Success](pipeline-success.png)
 
 ---
 
-SOC Detection – Brute-Force Attack Identified
+### SOC Detection – Brute-Force Attack Identified
 
-Azure Sentinel logs show repeated GET requests to /login from the same IP.
-
-KQL Query Used:
-
-AppServiceHTTPLogs
-| where CsUriStem == "/login"
-
-Screenshot:
-sentinel-attack.png
+![Azure Sentinel Brute-Force Detection](sentinel-attack.png)
 
 ---
 
 ## 🧪 What This Project Proves to Recruiters
 
-- Ability to secure infrastructure, not just deploy applications
-- Real CI/CD security enforcement
-- SOC-level detection logic and investigation
+- Secure infrastructure provisioning
+- CI/CD security enforcement
+- Real SOC detection logic
 - Understanding of attacker behavior
 - Enterprise cloud operational maturity
-
-This project clearly differentiates the candidate from standard junior DevOps profiles.
 
 ---
 
 ## 🧰 Technology Stack
 
-Cloud Provider: Microsoft Azure  
-Infrastructure as Code: Terraform  
+Cloud: Microsoft Azure  
+IaC: Terraform  
 CI/CD: GitHub Actions  
-Containerization: Docker  
-Security Scanning: Trivy  
+Containers: Docker  
+Security Scan: Trivy  
 SIEM: Azure Sentinel  
 Logging: Azure Log Analytics  
 Application: Python (Flask)
